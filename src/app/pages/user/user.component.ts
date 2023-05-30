@@ -12,6 +12,7 @@ export class UserComponent {
   isEditPopupOpen: boolean = false;
   isViewPopupOpen: boolean = false;
   isDeletePopupOpen: boolean = false;
+  mode : string = "";
 
   setActiveTab(index: number) {
     this.activeTabIndex = index;
@@ -46,6 +47,7 @@ export class UserComponent {
   }
 
   addRow() {
+    this.mode = "Add"
     this.popupVisible = true;
     this.selectedRow = null;
     this.editForm.reset();
@@ -53,7 +55,8 @@ export class UserComponent {
 
 
 
-  viewRow(row: any) {
+  viewRow(mode:string,row: any) {
+    this.mode = mode;
     this.popupVisible = true;
     this.selectedRow = row;
     this.editForm.patchValue({
@@ -64,7 +67,8 @@ export class UserComponent {
     });
   }
 
-  editRow(row: any) {
+  editRow(mode:string,row: any) {
+    this.mode = mode;
     this.popupVisible = true;
     this.selectedRow = row;
     this.editForm.patchValue({
@@ -96,8 +100,8 @@ export class UserComponent {
           age: this.editForm.get('age')?.value,
           email: this.editForm.get('email')?.value,
           address: this.editForm.get('address')?.value
-        }; 
-    this.rows.push(newRow)
+        };
+        this.rows.push(newRow)
         // Perform the add logic for the new row
         // For example, add the row to the data array
       }
@@ -107,7 +111,7 @@ export class UserComponent {
     }
   }
 
-  deleteRow(row: any) {
+  deleteRow(mode:string,row: any) {
     // Perform the deletion logic for the specified row
     // For example, remove the row from the data array
 
