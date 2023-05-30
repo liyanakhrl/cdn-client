@@ -1,0 +1,167 @@
+$color_1: #fff;
+$background-color_1:var(--maybank-black);
+$background-color_2: var(--maybank-yellow);
+$background-color_3: var(--maybank-orange);
+$background-color_4:var(--maybank-white);
+$background-color_5: var(--maybank-dark-chocolate);
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.wrapper {
+  display: flex;
+}
+
+#sidebar {
+  width: 250px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: $background-color_1;
+  color: $color_1;
+  transition: all 0.3s;
+
+
+  .sidebar-header {
+    padding: 5px 10px 2px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ul.components {
+    padding: 5px 0;
+  }
+
+  ul {
+    li {
+      padding: 10px;
+      font-size: 1.1em;
+
+      a {
+        color: $color_1;
+        display: block;
+        text-decoration: none;
+      }
+
+      &:hover {
+        background-color: $background-color_2;
+        color: $background-color_1;
+      }
+    }
+
+    li.active {
+      background-color: $background-color_3;
+    }
+
+    li.login {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      list-style-type: none;
+      padding: 10px;
+
+      &:hover {
+        background-color: $background-color_2;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+#content {
+  margin-left: 250px;
+  padding: 20px;
+}
+
+.navbar {
+  background-color: $background-color_4;
+}
+
+.navbar-toggler-icon {
+  background-color: $background-color_5;
+}
+
+.btn {
+  border-radius: 0;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+
+  #sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  ul.components {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  ul.components li {
+    margin-right: 10px;
+    /* Add a margin between list items */
+  }
+
+  ul.components li:last-child {
+    margin-right: 0;
+    /* Remove margin from the last list item */
+  }
+
+  ul.components li:hover {
+    margin-right: 0;
+    /* Remove margin on hover */
+    background-color: $background-color_2;
+    border-radius: 5px;
+  }
+
+  ul.components {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    /* Add this line to make the list items have the same width */
+  }
+
+  ul {
+    li.login {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      list-style-type: none;
+      padding: 5px;
+
+      &:hover {
+        background-color: $background-color_2;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  #content {
+    margin-left: 0;
+  }
+}

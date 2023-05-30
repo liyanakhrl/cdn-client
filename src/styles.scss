@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --maybank-yellow: #FDB100;
+  --maybank-orange: #FF5722;
+  --maybank-dark-chocolate: #43291F;
+  --maybank-white: #FFFFFF;
+  --maybank-black: #000000;
+}
+
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('.././src/assets/fonts/Roboto-Regular.ttf') format('truetype');
+  /* Add additional @font-face rules for different font weights and styles if needed */
+}

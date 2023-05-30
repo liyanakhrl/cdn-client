@@ -1,0 +1,172 @@
+$color_1: #fff;
+$background-color_1:var(--maybank-black);
+$background-color_2: var(--maybank-yellow);
+$background-color_3: var(--maybank-orange);
+$background-color_4:var(--maybank-white);
+$background-color_5: var(--maybank-dark-chocolate);
+$border-bottom-color_1: #333;
+/* Mobile styles */
+/* Media queries for responsiveness */
+/* Tablet and larger screens */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  ;
+}
+
+.container {
+  top: 0;
+  margin: 0;
+  position: fixed;
+  width: 100%;
+  left: 250px;
+
+}
+
+header {
+  background-color: $background-color_1;
+  color: $color_1;
+  padding: 10px;
+  text-align: center;
+  top: 0;
+  width: 100;
+  margin: 0;
+}
+
+nav {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+}
+
+
+
+nav {
+  li {
+    &:hover {
+      border-bottom-color: $border-bottom-color_1;
+
+      &::after {
+        background-color: $background-color_2;
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $background-color_1;
+      transition: background-color 0.3s ease;
+    }
+  }
+}
+
+
+main {
+  padding: 20px;
+}
+
+.card {
+  background-color: $background-color_2;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.reports {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+}
+
+.report-card {
+  background-color: $background-color_2;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+footer {
+  background-color: $background-color_1;
+  color: $color_1;
+  padding: 10px;
+  text-align: center;
+  margin: 0;
+  bottom: 0;
+  left: 250px;
+  width: 100%;
+  position: fixed;
+}
+
+
+
+.table-container {
+	max-width: 100%;
+	overflow-x: auto;
+}
+.responsive-table {
+	width: 100%;
+	border-collapse: collapse;
+  color:$background-color_1;
+	th {
+		padding: 8px;
+		border: 1px solid #ddd;
+		background-color: $background-color_4;
+	}
+	td {
+		padding: 8px;
+		border: 1px solid #ddd;
+	}
+	tbody {
+		tr {
+			&:nth-child(even) {
+				background-color: $background-color_2;
+			}
+			&:hover {
+				background-color: $background-color_3;
+			}
+		}
+	}
+}
+.button-container {
+	margin-top: 20px;
+	button {
+		margin-right: 10px;
+	}
+}
+
+
+@media (min-width: 768px) {
+  header {
+    text-align: left;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+
+  .reports {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  footer {
+    text-align: left;
+    margin: 0;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+
+  }
+}

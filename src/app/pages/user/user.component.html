@@ -1,0 +1,104 @@
+<h1>Freelance</h1>
+<nav>
+  <ul>
+    <li [class.active]="activeTabIndex === 0" (click)="setActiveTab(0)">Freelancer list</li>
+    <li [class.active]="activeTabIndex === 1" (click)="setActiveTab(1)">Project list</li>
+    <li [class.active]="activeTabIndex === 2" (click)="setActiveTab(2)">Settings</li>
+  </ul>
+</nav>
+
+<main>
+  <section *ngIf="activeTabIndex === 0">
+    <h2>Overview</h2>
+    <div class="card">
+      <div class="table-container">
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of rows">
+              <td>{{ row.name }}</td>
+              <td>{{ row.email }}</td>
+              <td>
+                <button (click)="openEditPopup(row)">Edit</button>
+                <button (click)="openViewPopup(row)">View</button>
+                <button (click)="openDeletePopup(row)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button (click)="addRow()">Add Row</button>
+      </div>
+
+      <!-- Edit Popup -->
+      <div *ngIf="isEditPopupOpen" class="popup">
+        <h2>Edit Row</h2>
+        <form (ngSubmit)="saveRow()">
+          <label>Name:</label>
+          <input type="text" [value]="selectedRow?.name">
+          <!-- <input type="text" [value]="selectedRow?.name" (input)="selectedRow.name = $event.target.value"> -->
+          <label>Email:</label>
+          <input type="email" [value]="selectedRow?.email">
+          <!-- <input type="email" [value]="selectedRow?.email" (input)="selectedRow.email = $event.target.value"> -->
+          <div class="button-container">
+            <button type="button" (click)="closePopup()">Cancel</button>
+            <button type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- View Popup -->
+      <div *ngIf="isViewPopupOpen" class="popup">
+        <h2>View Row</h2>
+        <p>Name: {{ selectedRow?.name }}</p>
+        <p>Email: {{ selectedRow?.email }}</p>
+        <div class="button-container">
+          <button (click)="closePopup()">Close</button>
+        </div>
+      </div>
+
+      <!-- Delete Popup -->
+      <div *ngIf="isDeletePopupOpen" class="popup">
+        <h2>Delete Row</h2>
+        <p>Are you sure you want to delete this row?</p>
+        <div class="button-container">
+          <button (click)="closePopup()">Cancel</button>
+          <button (click)="deleteRow()">Delete</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section *ngIf="activeTabIndex === 1">
+    <h2>Reports</h2>
+    <div class="reports">
+      <div class="report-card">
+        <h3>Report 1</h3>
+        <p>Report details...</p>
+      </div>
+      <div class="report-card">
+        <h3>Report 2</h3>
+        <p>Report details...</p>
+      </div>
+      <div class="report-card">
+        <h3>Report 3</h3>
+        <p>Report details...</p>
+      </div>
+      <div class="report-card">
+        <h3>Report 4</h3>
+        <p>Report details...</p>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="activeTabIndex === 2">
+    <h2>Settings</h2>
+    <p>Some settings options here...</p>
+  </section>
+</main>
