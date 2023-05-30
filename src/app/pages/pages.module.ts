@@ -6,6 +6,7 @@ import { AccountComponent } from './account/account.component';
 import { AuthComponent } from './auth/auth.component';
 import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +20,8 @@ import { PagesRoutingModule } from './pages-routing.module';
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

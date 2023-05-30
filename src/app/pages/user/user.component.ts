@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
@@ -7,59 +8,113 @@ import { Component } from '@angular/core';
 })
 export class UserComponent {
   activeTabIndex: number = 0;
-  selectedRow: any = null;
+  editForm: FormGroup;
   isEditPopupOpen: boolean = false;
   isViewPopupOpen: boolean = false;
   isDeletePopupOpen: boolean = false;
-  rows: any[] = [
-    { name: 'John Doe', email: 'john@example.com' },
-    { name: 'Jane Smith', email: 'jane@example.com' },
-    { name: 'Mike Johnson', email: 'mike@example.com' }
-  ];
+
   setActiveTab(index: number) {
     this.activeTabIndex = index;
   }
+  // Other component properties
+  rows: any[] = [{
+    name: "Elsa",
+    age: 22,
+    email: "elsa@mail.com",
+    address: "Geylang, SingapOre"
+  }, {
+    name: "Robin",
+    age: 26,
+    email: "rbb@mail.com",
+    address: "Jerung West, Singapore"
+  }, {
+    name: "Robbie",
+    age: 22,
+    email: "robbie@mail.com",
+    address: "Selayang, Selangor"
+  }]
+  popupVisible = false;
+  selectedRow: any;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.editForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      age: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', Validators.required]
+    });
+  }
+
   addRow() {
-    this.rows.push({ name: '', email: '' });
-  }
-
-  openEditPopup(row: any) {
-    this.selectedRow = { ...row }; // Create a copy of the row
-    this.isEditPopupOpen = true;
-  }
-
-  openViewPopup(row: any) {
-    this.selectedRow = row;
-    this.isViewPopupOpen = true;
-  }
-
-  openDeletePopup(row: any) {
-    this.selectedRow = row;
-    this.isDeletePopupOpen = true;
-  }
-
-  closePopup() {
+    this.popupVisible = true;
     this.selectedRow = null;
-    this.isEditPopupOpen = false;
-    this.isViewPopupOpen = false;
-    this.isDeletePopupOpen = false;
+    this.editForm.reset();
+  }
+
+
+
+  viewRow(row: any) {
+    this.popupVisible = true;
+    this.selectedRow = row;
+    this.editForm.patchValue({
+      name: row.name,
+      age: row.age,
+      email: row.email,
+      address: row.address
+    });
+  }
+
+  editRow(row: any) {
+    this.popupVisible = true;
+    this.selectedRow = row;
+    this.editForm.patchValue({
+      name: row.name,
+      age: row.age,
+      email: row.email,
+      address: row.address
+    });
   }
 
   saveRow() {
-    // Find the index of the selected row
-    const index = this.rows.findIndex(row => row === this.selectedRow);
-    if (index > -1) {
-      // Update the row with the modified values
-      this.rows[index] = { ...this.selectedRow };
+    if (this.editForm.valid) {
+      if (this.selectedRow) {
+        // Update existing row
+        const updatedRow = {
+          id: this.selectedRow.id,
+          name: this.editForm.get('name')?.value,
+          age: this.editForm.get('age')?.value,
+          email: this.editForm.get('email')?.value,
+          address: this.editForm.get('address')?.value
+        };
+        // Perform the update logic for the row
+        // For example, update the row in the data array
+      } else {
+        // Add new row
+        const newRow = {
+          id: this.rows.length + 1,
+          name: this.editForm.get('name')?.value,
+          age: this.editForm.get('age')?.value,
+          email: this.editForm.get('email')?.value,
+          address: this.editForm.get('address')?.value
+        }; 
+    this.rows.push(newRow)
+        // Perform the add logic for the new row
+        // For example, add the row to the data array
+      }
+
+
+      this.closePopup();
     }
+  }
+
+  deleteRow(row: any) {
+    // Perform the deletion logic for the specified row
+    // For example, remove the row from the data array
+
     this.closePopup();
   }
 
-  deleteRow() {
-    const index = this.rows.indexOf(this.selectedRow);
-    if (index > -1) {
-      this.rows.splice(index, 1);
-    }
-    this.closePopup();
+  closePopup() {
+    this.popupVisible = false;
   }
 }
