@@ -86,8 +86,11 @@ main {
 
 .reports {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
+  // display: grid;
+  // grid-template-columns: 1fr;
+  // grid-gap: 10px;
 }
 
 .report-card {
@@ -108,6 +111,11 @@ footer {
   position: fixed;
 }
 
+@media (min-width: 1024px) {
+  .reports {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 @media (min-width: 768px) {
   header {
     text-align: left;
@@ -120,7 +128,7 @@ footer {
   }
 
   .reports {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   footer {

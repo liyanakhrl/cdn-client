@@ -7,8 +7,32 @@
 </nav>
 
 <main>
-
   <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <td>{{row.name}}</td>
+          <td>{{row.age}}</td>
+          <td>{{row.email}}</td>
+          <td>{{row.address}}</td>
+          <td> <i class="fa fa-pencil" (click)="editRow('Edit',row)"></i>
+            <i class="fa fa-eye" (click)="viewRow('View',row)"></i>
+            <i class="fa fa-trash" (click)="deleteRow('Delete',row)"></i></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <!-- <div class="table-container">
     <table class="responsive-table">
       <thead>
         <tr>
@@ -29,12 +53,12 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
   <div class="popup-container" *ngIf="popupVisible">
     <div class="popup-content">
       <h2>{{mode}} Freelance Info</h2>
       <!-- <h2>{{ selectedRow ? 'Edit Row' : 'Add Row' }}</h2> -->
-      <form [formGroup]="editForm">
+      <form [formGroup]="userForm">
         <div class="form-item">
           <label>Name</label>
           <input type="text" formControlName="name" required></div>
@@ -51,8 +75,9 @@
           <label>Address</label>
           <input type="text" formControlName="address" required></div>
 
-        <button (click)="saveRow()">Save</button>
-        <button (click)="closePopup()">Cancel</button>
+        <button class="success" *ngIf="mode !== 'Delete User'" (click)="saveRow()">Save</button>
+        <button class="danger" *ngIf="mode === 'Delete User'" (click)="removeRow()">Delete</button>
+        <button class="default" (click)="closePopup()">Cancel</button>
       </form>
     </div>
   </div>

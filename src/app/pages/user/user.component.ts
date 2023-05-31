@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UserComponent {
   activeTabIndex: number = 0;
-  editForm: FormGroup;
+  userForm: FormGroup;
   isEditPopupOpen: boolean = false;
   isViewPopupOpen: boolean = false;
   isDeletePopupOpen: boolean = false;
@@ -19,16 +19,19 @@ export class UserComponent {
   }
   // Other component properties
   rows: any[] = [{
+    id:1,
     name: "Elsa",
     age: 22,
     email: "elsa@mail.com",
     address: "Geylang, SingapOre"
   }, {
+    id:2,
     name: "Robin",
     age: 26,
     email: "rbb@mail.com",
     address: "Jerung West, Singapore"
   }, {
+    id:3,
     name: "Robbie",
     age: 22,
     email: "robbie@mail.com",
@@ -38,7 +41,7 @@ export class UserComponent {
   selectedRow: any;
 
   constructor(private formBuilder: FormBuilder) {
-    this.editForm = this.formBuilder.group({
+    this.userForm = this.formBuilder.group({
       name: ['', Validators.required],
       age: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -50,7 +53,7 @@ export class UserComponent {
     this.mode = "Add"
     this.popupVisible = true;
     this.selectedRow = null;
-    this.editForm.reset();
+    this.userForm.reset();
   }
 
 
@@ -59,7 +62,7 @@ export class UserComponent {
     this.mode = mode;
     this.popupVisible = true;
     this.selectedRow = row;
-    this.editForm.patchValue({
+    this.userForm.patchValue({
       name: row.name,
       age: row.age,
       email: row.email,
@@ -71,7 +74,7 @@ export class UserComponent {
     this.mode = mode;
     this.popupVisible = true;
     this.selectedRow = row;
-    this.editForm.patchValue({
+    this.userForm.patchValue({
       name: row.name,
       age: row.age,
       email: row.email,
@@ -80,15 +83,15 @@ export class UserComponent {
   }
 
   saveRow() {
-    if (this.editForm.valid) {
+    if (this.userForm.valid) {
       if (this.selectedRow) {
         // Update existing row
         const updatedRow = {
           id: this.selectedRow.id,
-          name: this.editForm.get('name')?.value,
-          age: this.editForm.get('age')?.value,
-          email: this.editForm.get('email')?.value,
-          address: this.editForm.get('address')?.value
+          name: this.userForm.get('name')?.value,
+          age: this.userForm.get('age')?.value,
+          email: this.userForm.get('email')?.value,
+          address: this.userForm.get('address')?.value
         };
         // Perform the update logic for the row
         // For example, update the row in the data array
@@ -96,10 +99,10 @@ export class UserComponent {
         // Add new row
         const newRow = {
           id: this.rows.length + 1,
-          name: this.editForm.get('name')?.value,
-          age: this.editForm.get('age')?.value,
-          email: this.editForm.get('email')?.value,
-          address: this.editForm.get('address')?.value
+          name: this.userForm.get('name')?.value,
+          age: this.userForm.get('age')?.value,
+          email: this.userForm.get('email')?.value,
+          address: this.userForm.get('address')?.value
         };
         this.rows.push(newRow)
         // Perform the add logic for the new row
@@ -112,9 +115,20 @@ export class UserComponent {
   }
 
   deleteRow(mode:string,row: any) {
-    // Perform the deletion logic for the specified row
-    // For example, remove the row from the data array
+    this.mode = "Delete User";
+    this.popupVisible = true;
+    this.selectedRow = row;
+    this.userForm.patchValue({
+      name: row.name,
+      age: row.age,
+      email: row.email,
+      address: row.address
+    });
+  }
 
+  removeRow() {
+    const removeRow = this.rows.findIndex(i => this.selectedRow.id === i.id);
+    this.rows.splice(removeRow, 1);
     this.closePopup();
   }
 
