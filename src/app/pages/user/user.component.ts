@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from 'src/app/core/http.service';
+import { Freelancer } from 'src/app/interface/freelancer.interface';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent {
+export class UserComponent implements OnInit{
   activeTabIndex: number = 0;
   userForm: FormGroup;
   isEditPopupOpen: boolean = false;
@@ -17,30 +19,13 @@ export class UserComponent {
   setActiveTab(index: number) {
     this.activeTabIndex = index;
   }
-  // Other component properties
-  rows: any[] = [{
-    id:1,
-    name: "Elsa",
-    age: 22,
-    email: "elsa@mail.com",
-    address: "Geylang, SingapOre"
-  }, {
-    id:2,
-    name: "Robin",
-    age: 26,
-    email: "rbb@mail.com",
-    address: "Jerung West, Singapore"
-  }, {
-    id:3,
-    name: "Robbie",
-    age: 22,
-    email: "robbie@mail.com",
-    address: "Selayang, Selangor"
-  }]
+
+
+  freelancers !: Freelancer[];
   popupVisible = false;
   selectedRow: any;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, public httpService : HttpService) {
     this.userForm = this.formBuilder.group({
       name: ['', Validators.required],
       age: ['', Validators.required],
@@ -49,6 +34,12 @@ export class UserComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.httpService.get('/freelancer').subscribe(i=>{
+      this.freelancers = i;
+      console.log('get->',this.freelancers)
+    })
+  }
   addRow() {
     this.mode = "Add"
     this.popupVisible = true;
@@ -93,18 +84,46 @@ export class UserComponent {
           email: this.userForm.get('email')?.value,
           address: this.userForm.get('address')?.value
         };
+        if(this.mode === 'edit'){
+          this.httpService.put('/freelancer', {
+            "firstName": "Ethan",
+            "surname": "King",
+            "gender": "Female",
+            "designation": "Frontend Developer",
+            "email": "e.king@example.com",
+            "address": "111 Main St, City, Country",
+            "hourlyRate": "30"
+          })
+        }
+        this.httpService.post('/freelancer', {
+          "firstName": "Ethan",
+          "surname": "King",
+          "gender": "Female",
+          "designation": "Frontend Developer",
+          "email": "e.king@example.com",
+          "address": "111 Main St, City, Country",
+          "hourlyRate": "30"
+        })
         // Perform the update logic for the row
         // For example, update the row in the data array
       } else {
         // Add new row
+        // const newRow = {
+        //   id: this.freelancers.length + 1,
+        //   name: this.userForm.get('name')?.value,
+        //   age: this.userForm.get('age')?.value,
+        //   email: this.userForm.get('email')?.value,
+        //   address: this.userForm.get('address')?.value
+        // };
+
         const newRow = {
-          id: this.rows.length + 1,
+          id: this.freelancers.length + 1,
           name: this.userForm.get('name')?.value,
           age: this.userForm.get('age')?.value,
           email: this.userForm.get('email')?.value,
           address: this.userForm.get('address')?.value
         };
-        this.rows.push(newRow)
+        // this.freelancers.push(newRow)
         // Perform the add logic for the new row
         // For example, add the row to the data array
       }
@@ -127,8 +146,10 @@ export class UserComponent {
   }
 
   removeRow() {
-    const removeRow = this.rows.findIndex(i => this.selectedRow.id === i.id);
-    this.rows.splice(removeRow, 1);
+    // const removeRow = this.rows.findIndex(i => this.selectedRow.id === i.id);
+    // this.rows.splice(removeRow, 1);
+    const removeRow = this.freelancers.findIndex(i => this.selectedRow.id === i._id);
+    this.freelancers.splice(removeRow, 1);
     this.closePopup();
   }
 

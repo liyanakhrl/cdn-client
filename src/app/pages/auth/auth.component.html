@@ -1,1 +1,19 @@
-<p>auth works!</p>
+<div class="container">
+  <div class="form">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+      <input type="text" formControlName="username" placeholder="Username">
+      <input type="password" formControlName="password" placeholder="Password">
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  <div class="form">
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+      <input type="text" formControlName="username" placeholder="Username">
+      <input type="email" formControlName="email" placeholder="Email">
+      <input type="password" formControlName="password" placeholder="Password">
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</div>

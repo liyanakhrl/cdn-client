@@ -1,0 +1,83 @@
+$color_1: #333;
+$color_2: #fff;
+$font-family_1: Arial, sans-serif;
+$background-color_1: #f5f5f5;
+$background-color_2: #fff;
+$background-color_3: #4CAF50;
+$background-color_4: #45a049;
+
+ 
+.container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 20px;
+	height: 100vh;
+	align-items: stretch;
+	justify-content: center;
+}
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	background-color: $background-color_2;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	h2 {
+		text-align: center;
+		margin-bottom: 20px;
+		color: $color_1;
+	}
+	input[type="text"] {
+		width: 100%;
+		padding: 10px;
+		margin-bottom: 10px;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		font-size: 16px;
+	}
+	input[type="password"] {
+		width: 100%;
+		padding: 10px;
+		margin-bottom: 10px;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		font-size: 16px;
+	}
+	input[type="email"] {
+		width: 100%;
+		padding: 10px;
+		margin-bottom: 10px;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		font-size: 16px;
+	}
+	button {
+		width: 100%;
+		padding: 10px;
+		background-color: $background-color_3;
+		color: $color_2;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 16px;
+		transition: background-color 0.3s ease;
+		&:hover {
+			background-color: $background-color_4;
+		}
+	}
+}
+@media screen and (min-width: 600px) {
+	.container {
+		gap: 10px;
+	}
+}
+@media screen and (min-width: 960px) {
+	.container {
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+		gap: 20px;
+		align-items: center;
+		justify-content: space-around;
+	}
+}

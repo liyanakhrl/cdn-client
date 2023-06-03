@@ -19,9 +19,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of rows">
-          <td>{{row.name}}</td>
-          <td>{{row.age}}</td>
+        <tr *ngFor="let row of freelancers">
+          <td>{{row.firstName}}</td>
+          <td>{{row.hourlyRate}}</td>
           <td>{{row.email}}</td>
           <td>{{row.address}}</td>
           <td> <i class="fa fa-pencil" (click)="editRow('Edit',row)"></i>

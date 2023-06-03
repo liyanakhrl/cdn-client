@@ -7,7 +7,11 @@ import { AuthComponent } from './auth/auth.component';
 import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
+import { AuthService } from '../auth/auth.service';
+import { HttpService } from '../core/http.service';
+import { ErrorHandlerService } from '../core/error-handler.service';
 
 
 @NgModule({
@@ -21,7 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     PagesRoutingModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers:[AuthService,HttpService,ErrorHandlerService]
 })
 export class PagesModule { }
