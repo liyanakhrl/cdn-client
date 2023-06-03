@@ -1,14 +1,14 @@
 <div class="wrapper">
   <nav id="sidebar">
     <div class="sidebar-header">
-      <h3>Complete Developer Network</h3>
+      <h3>Complete Developer Network {{isLoggedIn}} </h3>
     </div>
     <ul class="list-unstyled components">
       <li [ngClass]="{'active': menu.isActive}" *ngFor="let menu of menuList; index as i" (click)="selectedMenu(i)">
-        <span>{{menu.name}}</span>
-      </li>
+        <div> <span>{{menu.name}}</span></div>
 
-      <li class="login" (click)="navigateLogin()">
+      </li>
+      <li class="login" *ngIf="!authService.hasToken()" (click)="navigateLogin()">
         <span>Login</span>
       </li>
     </ul>
@@ -16,7 +16,7 @@
   <div id="content">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-       <router-outlet></router-outlet>
+        <router-outlet></router-outlet>
       </div>
     </nav>
   </div>

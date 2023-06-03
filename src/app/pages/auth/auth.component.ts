@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpService } from 'src/app/core/http.service';
 
@@ -13,7 +14,7 @@ export class AuthComponent implements OnInit{
   loginForm!: FormGroup;
   registerForm!: FormGroup;
 
-  constructor(private fb: FormBuilder,  public authService : AuthService, public httpService: HttpService, public httpCLient:HttpClient) { }
+  constructor(private fb: FormBuilder,  public authService : AuthService, public httpService: HttpService,public router : Router) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -23,7 +24,6 @@ export class AuthComponent implements OnInit{
 
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
@@ -32,8 +32,11 @@ export class AuthComponent implements OnInit{
     if (this.loginForm.valid) {
       const username = this.loginForm.value.username;
       const password = this.loginForm.value.password;
-      console.log('Login form submitted:', username, password);
-      // Add your login logic here
+      this.authService.login(username, password)
+        .subscribe(() => {
+          this.router.navigate([`pages/dashboard`]);
+        }, error => { 
+        });
     }
   }
 
@@ -42,14 +45,12 @@ export class AuthComponent implements OnInit{
       const username = this.registerForm.value.username;
       const email = this.registerForm.value.email;
       const password = this.registerForm.value.password;
-      // this.httpService.get('/freelancer').subscribe(i=>{
-      //   console.log('data',i)
-      // })
-      // this.httpCLient.get('http://localhost:3000/api/freelancer').subscribe(i=>{
-      //   console.log(i)
-      // })
-      // console.log('Register form submitted:', username, email, password);
-      // Add your register logic here
+      this.httpService.post('/user/register', {
+        username: username,
+        password: password
+      }).subscribe(i=>{
+        this.router.navigate([`pages/dashboard`]);
+      });
     }
   }
 }

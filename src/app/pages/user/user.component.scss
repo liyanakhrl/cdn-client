@@ -206,7 +206,7 @@ th {
 
   main {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+ //   grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
   }
 
@@ -336,7 +336,7 @@ i {
   margin-bottom: 5px;
   color: #333;
   font-weight: bold;
-  width: 80px;
+  width: 140px;
 }
 
 .popup-content input[type="text"],

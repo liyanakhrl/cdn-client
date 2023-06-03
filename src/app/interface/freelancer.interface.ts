@@ -1,6 +1,5 @@
 
 export interface Freelancer {
-  _id: string
   firstName: string
   surname: string
   designation: string
@@ -8,5 +7,6 @@ export interface Freelancer {
   address: string
   hourlyRate: string
   gender: string
-  __v: number
+  _id?: string
+  __v?: number
 }
