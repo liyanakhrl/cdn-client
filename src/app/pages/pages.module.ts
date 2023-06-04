@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { HttpService } from '../core/http.service';
 import { ErrorHandlerService } from '../core/error-handler.service';
+import { SkillsetComponent } from './skillset/skillset.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ErrorHandlerService } from '../core/error-handler.service';
     UserComponent,
     AccountComponent,
     AuthComponent,
-    PagesComponent
+    PagesComponent,
+    SkillsetComponent
   ],
   imports: [
     CommonModule,

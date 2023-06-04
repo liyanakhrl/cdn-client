@@ -1,0 +1,114 @@
+$color_1: #999;
+$color_2: #aaa; 
+$background-color_1: #f2f2f2;
+$background-color_2: #ccc;
+$background-color_3: rgba(0, 0, 0, 0.7);
+$background-color_4: #fff;
+
+body {
+	padding: 20px;
+}
+h1 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+.tab {
+	display: none;
+}
+.tab.active {
+	display: block;
+}
+.tab-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+.tab-switch-btns {
+	display: flex;
+	align-items: center;
+	.tab-switch-btn {
+		padding: 10px 20px;
+		font-weight: bold;
+		background-color: $background-color_1;
+		border: none;
+		border-radius: 5px;
+		margin-right: 10px;
+		cursor: pointer;
+	}
+	.tab-switch-btn.active {
+		background-color: $background-color_2;
+	}
+}
+.add-remove-icon {
+	font-size: 20px;
+	color: $color_1;
+	margin-left: 10px;
+	cursor: pointer;
+}
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+th {
+	padding: 10px;
+	text-align: left;
+	background-color: $background-color_1;
+	font-weight: bold;
+}
+td {
+	padding: 10px;
+	text-align: left;
+}
+.add-skillset-btn {
+	display: block;
+	margin-bottom: 20px;
+	text-align: center;
+}
+.popup {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $background-color_3;
+	align-items: center;
+	justify-content: center;
+}
+.popup__content {
+	background-color: $background-color_4;
+	padding: 20px;
+	border-radius: 5px;
+}
+.popup__close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: $color_2;
+	cursor: pointer;
+}
+.form-group {
+	margin-bottom: 10px;
+	label {
+		display: block;
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+	input {
+		width: 100%;
+		padding: 5px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+	}
+	select {
+		width: 100%;
+		padding: 5px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+	}
+	.btn {
+		margin-top: 10px;
+	}
+}

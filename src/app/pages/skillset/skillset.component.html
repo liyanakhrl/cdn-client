@@ -1,0 +1,140 @@
+<!-- skillset.component.html -->
+<h1>Freelancer Skillset</h1>
+
+<div class="tab-header">
+  <div class="tab-switch-btns">
+    <button class="tab-switch-btn" *ngFor="let category of categories" [class.active]="activeTab === category.tabName" (click)="switchTab($event,category.tabName)">{{category.name}}</button>
+  </div>
+  <div class="add-remove-icons">
+    <span class="add-remove-icon" (click)="openAddCategoryPopup()">+</span>
+    <span class="add-remove-icon" (click)="openDeleteTabPopup()">-</span>
+  </div>
+</div>
+<div *ngFor="let category of categories" id="{{category.tabName}}" class="tab" [class.active]="activeTab === category.tabName">
+  <table>
+    <thead>
+      <tr>
+        <th>Subcategory</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subcategory of category.subcategory">
+        <td>{{subcategory.name}}</td>
+        <td>
+          <button class="btn--edit">Edit</button>
+          <button class="btn--delete">Delete</button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+<!-- <div id="frontend-tab" class="tab" [class.active]="activeTab === 'frontend-tab'">
+  <table>
+    <thead>
+      <tr>
+        <th>Subcategory</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>React</td>
+        <td>
+          <button class="btn--edit">Edit</button>
+          <button class="btn--delete">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td>Angular</td>
+        <td>
+          <button class="btn--edit">Edit</button>
+          <button class="btn--delete">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="backend-tab" class="tab" [class.active]="activeTab === 'backend-tab'">
+  <table>
+    <thead>
+      <tr>
+        <th>Subcategory</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Node.js</td>
+        <td>
+          <button class="btn--edit">Edit</button>
+          <button class="btn--delete">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td>Python</td>
+        <td>
+          <button class="btn--edit">Edit</button>
+          <button class="btn--delete">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<div class="add-skillset-btn">
+  <button class="btn" (click)="openPopup()">Add Skillset</button>
+</div>
+
+<div class="popup" id="popup" [style.display]="showPopup ? 'flex' : 'none'">
+
+  <div class="popup__content">
+    <span class="popup__close" (click)="closePopup()">&times;</span>
+    <h2>Add New Skillset</h2>
+    <form [formGroup]="skillsetForm" (ngSubmit)="addSkillset()">
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <select id="category" formControlName="category">
+          <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="subcategory">Subcategory:</label>
+        <input type="text" id="subcategory" formControlName="subcategory" placeholder="Enter subcategory">
+      </div>
+      <div class="form-group">
+        <button class="btn" type="submit">Add Skillset</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div class="popup" id="delete-tab-popup" [style.display]="showDeleteTabPopup ? 'flex' : 'none'">
+  <div class="popup__content">
+    <span class="popup__close" (click)="closeDeleteTabPopup()">&times;</span>
+    <h2>Delete Tab</h2>
+    <p>Are you sure you want to delete the selected tab?</p>
+    <div class="form-group">
+      <button class="btn" (click)="deleteTab()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="popup" id="add-category-popup" [style.display]="showAddCategoryPopup ? 'flex' : 'none'">
+  <div class="popup__content">
+    <span class="popup__close" (click)="closeAddCategoryPopup()">&times;</span>
+    <h2>Add Category</h2>
+    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+      <div class="form-group">
+        <label for="category-name">Category Name:</label>
+        <input type="text" id="category-name" formControlName="categoryName" placeholder="Enter category name">
+      </div>
+      <div class="form-group">
+        <button class="btn" type="submit">Add Category</button>
+      </div>
+    </form>
+  </div>
+</div>
