@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class AuthService {
   private token!: string;
   public isLoggedIn!: BehaviorSubject<any>;
+  public username!: BehaviorSubject<string>;
   baseURL = environment.apiUrl;
 
   constructor(public http:HttpClient) {}
@@ -37,8 +38,10 @@ export class AuthService {
       .pipe(
         tap((response: any) => {
           // Save the JWT token in local storage or other storage mechanism
+          // this.username.next(username);
           const token = response.access_token;
        //   this.isLoggedIn.next(true)
+          localStorage.setItem('username', username);
           localStorage.setItem('token', token);
         })
       );
@@ -49,6 +52,7 @@ export class AuthService {
     this.clearToken();
     // Clear the stored token from local storage
     localStorage.removeItem('token');
+    localStorage.removeItem('username')
     // Update the logged-in status
 //    this.isLoggedIn.next(null);
   }
