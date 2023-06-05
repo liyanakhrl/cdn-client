@@ -44,7 +44,7 @@ Build the Angular app by running
 
 
 ## Login
-![Login](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
+![Login](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/login.png)
 
 ## Dashboard
 ![Dashboard](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
