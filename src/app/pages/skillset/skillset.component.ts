@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { HttpService } from "src/app/core/http.service";
 import { Category, Subcategory } from "src/app/interface/skill-category.interface";
 import { TabHelper } from "src/app/utils/tabs/add-tabs";
 
@@ -42,9 +43,12 @@ export class SkillsetComponent implements OnInit {
     },
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private httpService : HttpService) {}
 
   ngOnInit(): void {
+    this.httpService.get('/skills').subscribe(i=>{
+      this.categories = i; // TO DO MAP SUBCATEGORIES
+    })
     this.categoryForm = this.fb.group({
       categoryName: ["", Validators.required],
     });
@@ -87,7 +91,7 @@ export class SkillsetComponent implements OnInit {
     this.showPopup = false;
   }
 
-  addSkillset() { 
+  addSkillset() {
     if (this.skillsetForm.valid) {
       const category = this.skillsetForm.get('category')?.value;
       const subcategory = this.skillsetForm.get('subcategory')?.value;
@@ -131,6 +135,7 @@ export class SkillsetComponent implements OnInit {
   addCategory(): void {
     if (this.categoryForm.valid) {
       const categoryName = this.categoryForm.get("categoryName")?.value;
+      this.httpService.post('/skills',{name:categoryName})
       const lastCategory = this.categories[this.categories.length - 1];
       const id = (lastCategory?.id || 0) + 1;
       const categoryLongName = categoryName;

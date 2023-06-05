@@ -36,9 +36,30 @@
     </div>
     <div class="popup-container" *ngIf="popupVisible">
       <div class="popup-content">
-        <h2>{{mode}} Freelance Info</h2>
-        <!-- <h2>{{ selectedRow ? 'Edit Row' : 'Add Row' }}</h2> -->
+        <h2>{{mode}} Freelance</h2>
         <form [formGroup]="userForm">
+          <div *ngIf="mode !== 'Delete User'">
+          <div class="form-array-container" formArrayName="skillControl">
+            <div *ngFor="let control of skillControl.controls; let i = index" class="form-array-item">
+              <div class="skill-name">{{getSkillValue(control)}}</div>
+            </div>
+            <div class="form-array-item">
+              <div class="add-input-container" *ngIf="showInput">
+                <select class="input-field" #addSkillsInput id="add_skills" (change)="onDropdownChange($event)">
+                  <option *ngFor="let option of skill" [value]="option._id">{{ option.name }}</option>
+                </select>
+                <div class="icon-container">
+                  <i class="fa fa-plus" (click)="addFreelancerSkill()"></i>
+                </div>
+              </div>
+
+            </div>
+            <button type="button" (click)="addSkill()">{{inputButtonText}}</button>
+          </div>
+          <div class="form-item" style="display:none">
+            <label>ID</label>
+            <input type="text" formControlName="id" required>
+          </div>
           <div class="form-item">
             <label>First Name</label>
             <input type="text" formControlName="firstName" required>
@@ -47,6 +68,7 @@
             <label>Surname</label>
             <input type="text" formControlName="surname" required>
           </div>
+
           <div class="form-item">
             <label>Gender</label>
             <input type="text" formControlName="gender" required>
@@ -67,10 +89,11 @@
             <label>Hourly rate</label>
             <input type="number" formControlName="hourlyRate" required>
           </div>
-
-          <button class="success" *ngIf="mode !== 'Delete User'" (click)="saveRow()">Save</button>
+        </div>
+        <div class="button-group">
+          <button class="success" *ngIf="mode === 'Edit'" (click)="saveRow()">Save</button>
           <button class="danger" *ngIf="mode === 'Delete User'" (click)="removeRow()">Delete</button>
-          <button class="default" (click)="closePopup()">Cancel</button>
+          <button class="default" (click)="closePopup()">Cancel</button></div>
         </form>
       </div>
     </div>

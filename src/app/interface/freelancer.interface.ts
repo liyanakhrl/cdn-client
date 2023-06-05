@@ -7,6 +7,7 @@ export interface Freelancer {
   address: string
   hourlyRate: string
   gender: string
-  _id?: string
-  __v?: number
+  _id: string
+  __v: number
+  skillsets : string[]
 }

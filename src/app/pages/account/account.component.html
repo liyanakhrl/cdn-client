@@ -20,12 +20,12 @@
       </div>
       <div class="form-group">
         <label for="roles">Roles</label>
-      <div formArrayName="roles" class="tags-container">
-        <label *ngFor="let roleControl of roles.controls; let i = index" class="tag">
-          <span class="tag-label">{{ getRoleName(roleControl.value) }}</span>
-          <i class="fa fa-trash" (click)="removeRole(i)"></i>
-        </label>
-      </div>
+        <div formArrayName="roles" class="tags-container">
+          <label *ngFor="let roleControl of roles.controls; let i = index" class="tag">
+            <span class="tag-label">{{ getRoleName(roleControl.value) }}</span>
+            <i class="fa fa-trash" (click)="removeRole(i)"></i>
+          </label>
+        </div>
       </div>
 
 
