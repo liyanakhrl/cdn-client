@@ -40,29 +40,29 @@ Build the Angular app by running
    ```
 4.Access the application through your browser at http://localhost:4200.
 
-### Screenshot
+## Screenshot
 
 
-## Login
+### Login
 ![Login](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/login.png)
 
-## Dashboard
+### Dashboard
 ![Dashboard](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
 
-## Freelancer list
+### Freelancer list
 ![Freelance list](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
 
-## View freelancer
+### View freelancer
 ![View freelancer](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)  
 
-## Add new skillset for freelancer
+### Add new skillset for freelancer
 ![Add new skillset for freelance](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
 
-# Skillset list
+### Skillset list
 ![Skillset list](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
 
-## Add new skillset
+### Add new skillset
 ![Add skills](https://github.com/liyanakhrl/cdn-client/blob/master/screenshot/Add%20skill.png) 
 
-## User page
+### User page
 ![User Page](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
