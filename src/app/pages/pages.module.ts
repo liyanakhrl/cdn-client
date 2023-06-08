@@ -13,6 +13,7 @@ import { AuthService } from '../auth/auth.service';
 import { HttpService } from '../core/http.service';
 import { ErrorHandlerService } from '../core/error-handler.service';
 import { SkillsetComponent } from './skillset/skillset.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SkillsetComponent } from './skillset/skillset.component';
     CommonModule,
     PagesRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers:[AuthService,HttpService,ErrorHandlerService]
 })

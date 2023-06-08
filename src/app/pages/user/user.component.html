@@ -1,3 +1,5 @@
+<app-notification [message]="notificationMessage" [description]="notificationDescription" [variant]="notificationVariant"></app-notification>
+
 <h1>Freelance</h1>
 <nav>
   <ul>
@@ -91,7 +93,7 @@
           </div>
         </div>
         <div class="button-group">
-          <button class="success" *ngIf="mode === 'Edit'" (click)="saveRow()">Save</button>
+          <button class="success" *ngIf="mode === 'Edit' || mode === 'Create'" (click)="saveRow()">Save</button>
           <button class="danger" *ngIf="mode === 'Delete User'" (click)="removeRow()">Delete</button>
           <button class="default" (click)="closePopup()">Cancel</button></div>
         </form>

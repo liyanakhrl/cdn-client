@@ -1,0 +1,37 @@
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  z-index: 9999;
+
+  .message {
+    font-weight: bold;
+  }
+
+  .description {
+    margin-top: 5px;
+  }
+
+  &.success {
+    background-color: green;
+  }
+
+  &.warning {
+    background-color: orange;
+  }
+
+  &.deleted {
+    background-color: red;
+  }
+
+  &.default {
+    background-color: gray;
+  }
+
+  &.info {
+    background-color: blue;
+  }
+}

@@ -33,6 +33,9 @@ export class UserComponent implements OnInit {
   skill!: Skills[];
   selectedNewSkillId!: any;
   inputButtonText: string = "Open";
+  notificationMessage: string = '';
+  notificationDescription: string = '';
+  notificationVariant: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,7 +84,7 @@ export class UserComponent implements OnInit {
 
   addSkill() {
     this.showInput = !this.showInput;
-    this.inputButtonText = this.showInput ? "Close" : "Open"; //= "Close"
+    this.inputButtonText = this.showInput?"Close" : "Open"; //= "Close"
   }
 
   addFreelancerSkill() {
@@ -112,7 +115,7 @@ export class UserComponent implements OnInit {
     this.selectedNewSkillId = event.target.value;
   }
   addRow() {
-    this.mode = "Add";
+    this.mode = "Create";
     this.popupVisible = true;
     this.selectedRow = null;
     this.userForm.reset();
@@ -164,52 +167,56 @@ export class UserComponent implements OnInit {
   }
 
   saveRow() {
-    if (this.userForm.valid) {
-      if (this.selectedRow) {
-        // Update existing row
-        const updatedRow = {
-          id: this.selectedRow.id,
-          name: this.userForm.get("name")?.value,
-          age: this.userForm.get("age")?.value,
-          email: this.userForm.get("email")?.value,
-          address: this.userForm.get("address")?.value,
-        };
-        if (this.mode === "Edit") {
-          this.httpService
-            .put(`/freelancer/${this.selectedRow._id}`, {
-              firstName: this.userForm.get("firstName")?.value,
-              surname: this.userForm.get("surname")?.value,
-              gender: this.userForm.get("gender")?.value,
-              designation: this.userForm.get("designation")?.value,
-              email: this.userForm.get("email")?.value,
-              address: this.userForm.get("address")?.value,
-              hourlyRate: this.userForm.get("hourlyRate")?.value,
-              skill: this.selectedRow.skillsets,
+    if (this.selectedRow && this.userForm.valid) {
+      // Update existing row
+      const updatedRow = {
+        id: this.selectedRow.id,
+        name: this.userForm.get("name")?.value,
+        age: this.userForm.get("age")?.value,
+        email: this.userForm.get("email")?.value,
+        address: this.userForm.get("address")?.value,
+      };
+      if (this.mode === "Edit") {
+        this.httpService
+          .put(`/freelancer/${this.selectedRow._id}`, {
+            firstName: this.userForm.get("firstName")?.value,
+            surname: this.userForm.get("surname")?.value,
+            gender: this.userForm.get("gender")?.value,
+            designation: this.userForm.get("designation")?.value,
+            email: this.userForm.get("email")?.value,
+            address: this.userForm.get("address")?.value,
+            hourlyRate: this.userForm.get("hourlyRate")?.value,
+            skill: this.selectedRow.skillsets,
+          })
+          .subscribe((i) =>
+            this.httpService.get("/freelancer").subscribe((i) => {
+              this.notificationDescription = "The freelancer information has been updated"
+              this.notificationMessage = "Updated successfully"
+              this.notificationVariant = "success"
+              this.freelancers = i;
             })
-            .subscribe((i) =>
-              this.httpService.get("/freelancer").subscribe((i) => {
-                this.freelancers = i;
-              })
-            );
-        }
-      } else {
-        // Add new row
-        const obj: Freelancer = {
-          firstName: this.userForm.get("firstName")?.value,
-          surname: this.userForm.get("surname")?.value,
-          gender: this.userForm.get("gender")?.value,
-          designation: this.userForm.get("designation")?.value,
-          email: this.userForm.get("email")?.value,
-          address: this.userForm.get("address")?.value,
-          hourlyRate: this.userForm.get("hourlyRate")?.value,
-          skillsets: [],
-        };
-        this.httpService.post("/freelancer", obj).subscribe((i) => {
-          this.getFreelancer();
-        });
+          );
       }
-      this.closePopup();
+    } else {
+      // Add new row
+      const obj: Freelancer = {
+        firstName: this.userForm.get("firstName")?.value,
+        surname: this.userForm.get("surname")?.value,
+        gender: this.userForm.get("gender")?.value,
+        designation: this.userForm.get("designation")?.value,
+        email: this.userForm.get("email")?.value,
+        address: this.userForm.get("address")?.value,
+        hourlyRate: this.userForm.get("hourlyRate")?.value,
+        skillsets: [],
+      };
+      this.httpService.post("/freelancer", obj).subscribe((i) => {
+        this.notificationDescription = "The freelancer information has been added"
+        this.notificationMessage = "Added successfully"
+        this.notificationVariant = "success"
+        this.getFreelancer();
+      });
     }
+    this.closePopup();
   }
 
   deleteRow(mode: string, row: any) {
@@ -230,6 +237,9 @@ export class UserComponent implements OnInit {
 
   removeRow() {
     this.httpService.delete("/freelancer", this.userForm.value.id).subscribe((i) => {
+      this.notificationDescription = "The freelancer has been removed"
+      this.notificationMessage = "Deleted successfully"
+      this.notificationVariant = "deleted"
       this.getFreelancer();
     });
     const removeRow = this.freelancers.findIndex(
