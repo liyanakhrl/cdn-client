@@ -9,7 +9,7 @@ import {
 import { HttpService } from "src/app/core/http.service";
 import { Freelancer } from "src/app/interface/freelancer.interface";
 import { Skills } from "src/app/interface/skill.interface";
-import { UserService } from "../user.service";
+import { UserService } from "./user.service";
 
 @Component({
   selector: "app-user",
