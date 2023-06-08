@@ -25,14 +25,14 @@ export class UserComponent implements OnInit {
   isDeletePopupOpen: boolean = false;
   mode: string = "";
   showInput: boolean = false;
-  filterSkills : Skills[] = [];
+  filterSkills: Skills[] = [];
   freelancers!: Freelancer[];
   freelancerSkillset!: string[];
   popupVisible = false;
   selectedRow: any;
   skill!: Skills[];
   selectedNewSkillId!: any;
-  inputButtonText : string = "Open"
+  inputButtonText: string = "Open";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -80,9 +80,8 @@ export class UserComponent implements OnInit {
   }
 
   addSkill() {
-    
     this.showInput = !this.showInput;
-    this.inputButtonText = this.showInput ? "Close" : "Open";//= "Close"
+    this.inputButtonText = this.showInput ? "Close" : "Open"; //= "Close"
   }
 
   addFreelancerSkill() {
@@ -175,32 +174,39 @@ export class UserComponent implements OnInit {
           email: this.userForm.get("email")?.value,
           address: this.userForm.get("address")?.value,
         };
-        if (this.mode === "edit") {
-          this.httpService.put("/freelancer", {
-            firstName: this.userForm.get("firstName")?.value,
-            surname: this.userForm.get("surname")?.value,
-            gender: this.userForm.get("gender")?.value,
-            designation: this.userForm.get("designation")?.value,
-            email: this.userForm.get("email")?.value,
-            address: this.userForm.get("address")?.value,
-            hourlyRate: this.userForm.get("hourlyRate")?.value,
-          });
+        if (this.mode === "Edit") {
+          this.httpService
+            .put(`/freelancer/${this.selectedRow._id}`, {
+              firstName: this.userForm.get("firstName")?.value,
+              surname: this.userForm.get("surname")?.value,
+              gender: this.userForm.get("gender")?.value,
+              designation: this.userForm.get("designation")?.value,
+              email: this.userForm.get("email")?.value,
+              address: this.userForm.get("address")?.value,
+              hourlyRate: this.userForm.get("hourlyRate")?.value,
+              skill: this.selectedRow.skillsets,
+            })
+            .subscribe((i) =>
+              this.httpService.get("/freelancer").subscribe((i) => {
+                this.freelancers = i;
+              })
+            );
         }
       } else {
         // Add new row
-        // const obj: Freelancer = {
-        //   firstName: this.userForm.get("firstName")?.value,
-        //   surname: this.userForm.get("surname")?.value,
-        //   gender: this.userForm.get("gender")?.value,
-        //   designation: this.userForm.get("designation")?.value,
-        //   email: this.userForm.get("email")?.value,
-        //   address: this.userForm.get("address")?.value,
-        //   hourlyRate: this.userForm.get("hourlyRate")?.value,
-        //   skillsets : []
-        // };
-        // this.httpService.post("/freelancer", obj).subscribe((i) => {
-        //   this.getFreelancer();
-        // });
+        const obj: Freelancer = {
+          firstName: this.userForm.get("firstName")?.value,
+          surname: this.userForm.get("surname")?.value,
+          gender: this.userForm.get("gender")?.value,
+          designation: this.userForm.get("designation")?.value,
+          email: this.userForm.get("email")?.value,
+          address: this.userForm.get("address")?.value,
+          hourlyRate: this.userForm.get("hourlyRate")?.value,
+          skillsets: [],
+        };
+        this.httpService.post("/freelancer", obj).subscribe((i) => {
+          this.getFreelancer();
+        });
       }
       this.closePopup();
     }
@@ -218,10 +224,14 @@ export class UserComponent implements OnInit {
       email: row.email,
       address: row.address,
       hourlyRate: row.hourlyRate,
+      id: row._id,
     });
   }
 
   removeRow() {
+    this.httpService.delete("/freelancer", this.userForm.value.id).subscribe((i) => {
+      this.getFreelancer();
+    });
     const removeRow = this.freelancers.findIndex(
       (i) => this.selectedRow.id === i._id
     );
@@ -230,7 +240,7 @@ export class UserComponent implements OnInit {
   }
 
   closePopup() {
-    this.resetForm()
+    this.resetForm();
     this.popupVisible = false;
   }
 

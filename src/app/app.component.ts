@@ -33,13 +33,15 @@ export class AppComponent implements OnInit {
     path: 'account',
     isActive: false,
 
-  }, {
+  },
+   {
     id: 4,
     name: "Logout",
     path: "pages/auth",
     isActive: false,
 
-  }]
+  }
+]
 
   constructor(public router: Router, public authService: AuthService) {
     this.menuItems = document.querySelectorAll("#sidebar ul li");
@@ -70,6 +72,7 @@ export class AppComponent implements OnInit {
   }
 
   navigateLogin() {
+    if(this.authService.hasToken()) this.authService.logout()
     this.router.navigate([`pages/auth`]);
   }
 

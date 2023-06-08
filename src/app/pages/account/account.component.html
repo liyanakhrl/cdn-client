@@ -2,7 +2,7 @@
 <nav>
   <ul>
     <li [class.active]="activeTabIndex === 0" (click)="setActiveTab(0)">My Profile</li>
-    <li [class.active]="activeTabIndex === 1" (click)="setActiveTab(2)">Settings</li>
+    <li [class.active]="activeTabIndex === 1" (click)="setActiveTab(1)">Settings</li>
   </ul>
 </nav>
 
@@ -28,19 +28,32 @@
         </div>
       </div>
 
-
-
-      <!-- <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" formControlName="password" required>
-      </div> -->
-
       <button type="submit">Submit</button>
     </form>
   </section>
 
   <section *ngIf="activeTabIndex === 1">
-    <h2>Settings</h2>
-    <p>Some settings options here...</p>
+    <form [formGroup]="roleForm" id="account-form" (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role">
+          <option value="">Select a role</option>
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+          <option value="guest">Guest</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="roles">Roles</label>
+        <div formArrayName="roles" class="tags-container">
+          <label *ngFor="let roleControl of roles.controls; let i = index" class="tag">
+            <span class="tag-label">{{ getRoleName(roleControl.value) }}</span>
+            <i class="fa fa-trash" (click)="removeRole(i)"></i>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
   </section>
 </main>

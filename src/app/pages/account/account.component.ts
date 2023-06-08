@@ -18,6 +18,7 @@ import { Role } from "src/app/interface/role.interface";
 export class AccountComponent {
   activeTabIndex: number = 0;
   accountForm!: FormGroup;
+  roleForm!: FormGroup;
   data: any;
   role!: Role[];
   constructor(
@@ -33,9 +34,14 @@ export class AccountComponent {
   get roles(): FormArray {
     return this.accountForm.get("roles") as FormArray;
   }
-  
+
   ngOnInit() {
     this.accountForm = this.formBuilder.group({
+      username: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      roles: new FormArray([]),
+    });
+    this.roleForm = this.formBuilder.group({
       username: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
       roles: new FormArray([]),

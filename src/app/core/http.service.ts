@@ -29,7 +29,7 @@ export class HttpService {
 
   delete(url: string, data :any): Observable<any> {
     return this.http
-      .delete(`${this.baseURL}${url}`,data)
+      .delete(`${this.baseURL}${url}/${data}`)
       .pipe(catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error)));
   }
 
