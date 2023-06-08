@@ -1,27 +1,68 @@
-# CdnClient
+# Angular Client-Side README
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
+**Note: This README is a work in progress and may not include all the information yet.**
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This repository contains an Angular client-side application built using Angular framework. The application serves as the frontend for the web app, integrating with the server-side API endpoints provided by the NestJS backend. MongoDB is used as the database for storing and retrieving data.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular Components: The application is built using Angular components, providing a modular and reusable approach to building the user interface.
 
-## Build
+- Angular Routing: The application utilizes Angular Router to enable navigation between different views and components within the app.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- HTTP Requests: The Angular HttpClient module is used to make HTTP requests to the server-side APIs provided by the NestJS backend.
 
-## Running unit tests
+- Schemas: The application utilizes the following DTOs (Data Transfer Objects) to exchange data with the server-side API:
+  - CreateUserDto
+  - CreateFreelancerDTO
+  - UpdateFreelancerDto
+  - CreateRoleDto
+  - CreateSkillDTO
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Authentication: The application employs JWT (JSON Web Token) for authentication.
 
-## Running end-to-end tests
+## Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+To set up and run the Angular client-side application locally, please follow these steps:
 
-## Further help
+1. Clone this repository to your local machine.
+2. Install the necessary dependencies by running the following command:
+   ```shell
+   npm install
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+3. Configure the server-side API endpoint URLs in the application's configuration files to match your NestJS backend.
+Build the Angular app by running
+
+   ```shell
+   npm start
+   ```
+4.Access the application through your browser at http://localhost:4200.
+
+## Screenshot
+
+
+### Login
+![Login](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/login.png)
+
+### Dashboard
+![Dashboard](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
+
+### Freelancer list
+![Freelance list](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
+
+### View freelancer
+![View freelancer](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)  
+
+### Add new skillset for freelancer
+![Add new skillset for freelance](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
+
+### Skillset list
+![Skillset list](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
+
+### Add new skillset
+![Add skills](https://github.com/liyanakhrl/cdn-client/blob/master/screenshot/Add%20skill.png) 
+
+### User page
+![User Page](https://github.com/liyanakhrl/cdn-client/raw/master/screenshot/Add%20new%20skillset%20for%20freelance.png)
