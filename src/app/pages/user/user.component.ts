@@ -9,6 +9,7 @@ import {
 import { HttpService } from "src/app/core/http.service";
 import { Freelancer } from "src/app/interface/freelancer.interface";
 import { Skills } from "src/app/interface/skill.interface";
+import { UserService } from "../user.service";
 
 @Component({
   selector: "app-user",
@@ -33,13 +34,14 @@ export class UserComponent implements OnInit {
   skill!: Skills[];
   selectedNewSkillId!: any;
   inputButtonText: string = "Open";
-  notificationMessage: string = '';
-  notificationDescription: string = '';
-  notificationVariant: string = '';
+  // notificationMessage: string = '';
+  // notificationDescription: string = '';
+  // notificationVariant: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
-    public httpService: HttpService
+    public httpService: HttpService,
+    public service : UserService
   ) {
     this.userForm = this.formBuilder.group({
       id: [""],
@@ -190,9 +192,9 @@ export class UserComponent implements OnInit {
           })
           .subscribe((i) =>
             this.httpService.get("/freelancer").subscribe((i) => {
-              this.notificationDescription = "The freelancer information has been updated"
-              this.notificationMessage = "Updated successfully"
-              this.notificationVariant = "success"
+              this.service.notificationDescription = "The freelancer information has been updated"
+              this.service.notificationMessage = "Updated successfully"
+              this.service.notificationVariant = "success"
               this.freelancers = i;
             })
           );
@@ -210,9 +212,9 @@ export class UserComponent implements OnInit {
         skillsets: [],
       };
       this.httpService.post("/freelancer", obj).subscribe((i) => {
-        this.notificationDescription = "The freelancer information has been added"
-        this.notificationMessage = "Added successfully"
-        this.notificationVariant = "success"
+        this.service.notificationDescription = "The freelancer information has been added"
+        this.service.notificationMessage = "Added successfully"
+        this.service.notificationVariant = "success"
         this.getFreelancer();
       });
     }
@@ -237,9 +239,9 @@ export class UserComponent implements OnInit {
 
   removeRow() {
     this.httpService.delete("/freelancer", this.userForm.value.id).subscribe((i) => {
-      this.notificationDescription = "The freelancer has been removed"
-      this.notificationMessage = "Deleted successfully"
-      this.notificationVariant = "deleted"
+      this.service.notificationDescription = "The freelancer has been removed"
+      this.service.notificationMessage = "Deleted successfully"
+      this.service.notificationVariant = "deleted"
       this.getFreelancer();
     });
     const removeRow = this.freelancers.findIndex(
